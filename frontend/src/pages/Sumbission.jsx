@@ -6,6 +6,7 @@ export default function Sumbission() {
     const token = localStorage.getItem("token");
     const [fetchData, setFetchData] = useState([]);
     const [error, setError] = useState("");
+     const [menuOpen, setMenuOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
