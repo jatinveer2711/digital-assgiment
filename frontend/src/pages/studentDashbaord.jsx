@@ -8,6 +8,7 @@ export default function studentDashbaord() {
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
   const [fetchData, setFetchData] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [sumbissionData, setSumbissionData] = useState({
     assigment: "",
     student: "",
@@ -34,13 +35,13 @@ export default function studentDashbaord() {
 
   };
 
-   const handleLogout = () => {
-        let confirmLogout = window.confirm("Are you sure you want to logout?")
-        if (confirmLogout) {
-          localStorage.removeItem("token");
-          navigate("/login")
-        }
-      }
+  const handleLogout = () => {
+    let confirmLogout = window.confirm("Are you sure you want to logout?")
+    if (confirmLogout) {
+      localStorage.removeItem("token");
+      navigate("/login")
+    }
+  }
 
 
 
@@ -100,25 +101,58 @@ export default function studentDashbaord() {
             </h1>
           </div>
 
-          {/* Right */}
-          <nav className="flex items-center gap-6 text-sm">
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-6 text-sm">
             <a className="text-zinc-400 hover:text-amber-400 transition">
               Assignments
             </a>
-            <a href='/sumbission' className="text-zinc-400 hover:text-amber-400 transition">
+            <a href="/sumbission" className="text-zinc-400 hover:text-amber-400 transition">
               Submissions
             </a>
-            <a href='/' className="text-zinc-400 hover:text-amber-400 transition">
+            <a href="/" className="text-zinc-400 hover:text-amber-400 transition">
               Home
             </a>
-
-
-            <button onClick={handleLogout} className="px-4 py-2 bg-amber-400 text-black rounded-lg font-semibold hover:bg-amber-300 transition">
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-amber-400 text-black rounded-lg font-semibold hover:bg-amber-300 transition"
+            >
               Logout
             </button>
           </nav>
 
+          {/* Hamburger Button (Mobile) */}
+          <button
+            className="md:hidden flex flex-col gap-1.5 p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`block w-6 h-0.5 bg-zinc-300 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-zinc-300 transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-zinc-300 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </button>
+
         </div>
+
+        {/* Mobile Dropdown Menu */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-zinc-800 bg-zinc-950 px-6 py-4 flex flex-col gap-4 text-sm">
+            <a className="text-zinc-400 hover:text-amber-400 transition">
+              Assignments
+            </a>
+            <a href="/sumbission" className="text-zinc-400 hover:text-amber-400 transition">
+              Submissions
+            </a>
+            <a href="/" className="text-zinc-400 hover:text-amber-400 transition">
+              Home
+            </a>
+            <button
+              onClick={handleLogout}
+              className="w-full px-4 py-2 bg-amber-400 text-black rounded-lg font-semibold hover:bg-amber-300 transition"
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </header>
 
 
