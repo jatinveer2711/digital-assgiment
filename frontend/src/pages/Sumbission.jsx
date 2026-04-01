@@ -44,16 +44,26 @@ export default function Sumbission() {
             {/* Navbar */}
             <header className="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+                    {/* Left */}
                     <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-400">Portal</p>
-                        <h1 className="text-xl font-bold tracking-tight" style={{ fontFamily: "'DM Serif Display', serif" }}>
+                        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-400">
+                            Portal
+                        </p>
+                        <h1 className="text-xl font-bold tracking-tight">
                             Student Dashboard
                         </h1>
                     </div>
-                    <nav className="flex items-center gap-6 text-sm">
-                        <a href='/student' className="text-zinc-400 hover:text-amber-400 transition">Assignments</a>
-                        <a href="/sumbission" className="text-amber-400 font-medium border-b border-amber-400/40 pb-0.5">Submissions</a>
-                        <a href='/' className="text-zinc-400 hover:text-amber-400 transition">
+
+                    {/* Desktop Nav */}
+                    <nav className="hidden md:flex items-center gap-6 text-sm">
+                        <a className="text-zinc-400 hover:text-amber-400 transition">
+                            Assignments
+                        </a>
+                        <a href="/sumbission" className="text-zinc-400 hover:text-amber-400 transition">
+                            Submissions
+                        </a>
+                        <a href="/" className="text-zinc-400 hover:text-amber-400 transition">
                             Home
                         </a>
                         <button
@@ -63,7 +73,40 @@ export default function Sumbission() {
                             Logout
                         </button>
                     </nav>
+
+                    {/* Hamburger Button (Mobile) */}
+                    <button
+                        className="md:hidden flex flex-col gap-1.5 p-2"
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        aria-label="Toggle menu"
+                    >
+                        <span className={`block w-6 h-0.5 bg-zinc-300 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+                        <span className={`block w-6 h-0.5 bg-zinc-300 transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+                        <span className={`block w-6 h-0.5 bg-zinc-300 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+                    </button>
+
                 </div>
+
+                {/* Mobile Dropdown Menu */}
+                {menuOpen && (
+                    <div className="md:hidden border-t border-zinc-800 bg-zinc-950 px-6 py-4 flex flex-col gap-4 text-sm">
+                        <a className="text-zinc-400 hover:text-amber-400 transition">
+                            Assignments
+                        </a>
+                        <a href="/sumbission" className="text-zinc-400 hover:text-amber-400 transition">
+                            Submissions
+                        </a>
+                        <a href="/" className="text-zinc-400 hover:text-amber-400 transition">
+                            Home
+                        </a>
+                        <button
+                            onClick={handleLogout}
+                            className="w-full px-4 py-2 bg-amber-400 text-black rounded-lg font-semibold hover:bg-amber-300 transition"
+                        >
+                            Logout
+                        </button>
+                    </div>
+                )}
             </header>
 
             <div className="max-w-7xl mx-auto px-6 py-10">
@@ -133,8 +176,8 @@ export default function Sumbission() {
                                                 {sub.assigment?.title || "Untitled Assignment"}
                                             </h2>
                                             <span className={`flex-shrink-0 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border ${isGraded
-                                                    ? "text-emerald-400 bg-emerald-400/10 border-emerald-400/20"
-                                                    : "text-amber-400 bg-amber-400/10 border-amber-400/20"
+                                                ? "text-emerald-400 bg-emerald-400/10 border-emerald-400/20"
+                                                : "text-amber-400 bg-amber-400/10 border-amber-400/20"
                                                 }`}>
                                                 {isGraded ? "Graded" : "Submitted"}
                                             </span>
@@ -149,8 +192,8 @@ export default function Sumbission() {
 
                                         {/* ✅ Marks — fixed (was incorrectly using new Date()) */}
                                         <div className={`rounded-xl px-4 py-3 border flex items-center justify-between ${isGraded
-                                                ? "bg-emerald-500/5 border-emerald-500/20"
-                                                : "bg-zinc-800/60 border-zinc-700"
+                                            ? "bg-emerald-500/5 border-emerald-500/20"
+                                            : "bg-zinc-800/60 border-zinc-700"
                                             }`}>
                                             <div>
                                                 <p className="text-xs text-zinc-500 mb-0.5">Marks Obtained</p>
