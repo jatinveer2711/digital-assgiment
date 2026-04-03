@@ -17,7 +17,8 @@ export const userSchema = new mongoose.Schema({
     role:{
         type:String,
         enum:["student","teacher"],
-        lowercase:true
+        lowercase:true,
+        trim:true
     },
     createdAt:{
         type:Date,
